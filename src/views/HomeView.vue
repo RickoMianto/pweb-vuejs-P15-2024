@@ -39,7 +39,7 @@ export default {
 
 <template>
   <main class="mt-10 mx-8 pb-24">
-    <h1 class="font-bold text-3xl text-center">Book Gallery App P10</h1>
+    <h1 class="font-bold text-3xl text-center">Perpustakaan P15</h1>
     <div class="flex flex-wrap justify-center gap-4 mt-10">
       <BookCard
         v-if="booksData.length"
