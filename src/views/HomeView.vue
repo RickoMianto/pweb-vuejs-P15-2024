@@ -23,7 +23,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await fetch("http://localhost:3000/book");
+      const response = await fetch("http://localhost:3000/books");
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }

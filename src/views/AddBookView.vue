@@ -42,7 +42,7 @@ export default defineComponent({
         qty: this.qty,
       };
 
-      const response = await fetch("http://localhost:3000/book", {
+      const response = await fetch("http://localhost:3000/books", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
