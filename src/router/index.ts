@@ -1,32 +1,34 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import AddUser from '../views/add.user.vue';
-import Login from '../views/login.vue';
-import Dashboard from '../views/dashboard.vue';
-import BookDetail from '../views/book.details.vue';
-import AddBooks from '../views/addbooks.vue'; // Import AddBooks component
-
-const routes: Array<RouteRecordRaw> = [
-    { path: '/register', component: AddUser },
-    { path: '/login', component: Login },
-    {
-        path: '/dashboard',
-        component: Dashboard,
-        beforeEnter: (_to, _from, next) => {
-            const token = localStorage.getItem('token');
-            if (token) {
-                next(); // Allow access to Dashboard
-            } else {
-                next('/login'); // Redirect to Login if no token
-            }
-        },
-    },
-    { path: '/books/:id', component: BookDetail },
-    { path: '/add-book', component: AddBooks }, // Add route for AddBooks
-];
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import AddBookView from "@/views/AddBookView.vue";
+import DetailBookView from "@/views/DetailBookView.vue";
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: HomeView,
+    },
+    {
+      path: "/add-book",
+      name: "add-book",
+      component: AddBookView,
+    },
+    {
+      path: "/detail/:id",
+      name: "book detail",
+      component: DetailBookView,
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "PageNotFound",
+      redirect(_) {
+        return { path: "/" };
+      },
+    },
+  ],
 });
 
 export default router;
