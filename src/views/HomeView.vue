@@ -23,7 +23,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await fetch("http://localhost:1717/book");
+      const response = await fetch("http://localhost:3000/book");
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
@@ -56,7 +56,7 @@ export default {
 
     <!-- Books Section -->
     <section class="mt-10">
-      <h2 class="font-bold text-3xl text-center mb-6">Koleksi Buku</h2>
+      <h2 class="font-bold text-3xl text-center mb-6">Book Collection</h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Display Books -->
@@ -73,7 +73,7 @@ export default {
           v-else-if="fetchError"
           class="col-span-full text-center text-red-500 font-semibold text-xl"
         >
-          Gagal memuat data buku. Silakan coba lagi nanti.
+          Failed to Fetch Books, Try Again.
         </div>
 
         <!-- Loading Placeholder -->
