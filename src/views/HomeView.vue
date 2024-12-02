@@ -44,7 +44,7 @@ export default {
   <main class="mt-10 mx-8 pb-24">
     <!-- Hero Section -->
     <section
-      class="bg-blue-500 text-white py-10 px-8 rounded-lg shadow-md text-center"
+      class="bg-indigo-700 text-gray-100 py-10 px-8 rounded-lg shadow-md text-center"
     >
       <h1 class="font-bold text-4xl mb-4">
         Welcome to Library P15
@@ -79,12 +79,12 @@ export default {
         <!-- Loading Placeholder -->
         <div v-else class="col-span-full flex justify-center items-center">
           <div class="flex items-center space-x-2">
-            <div class="w-5 h-5 bg-blue-500 rounded-full animate-bounce"></div>
+            <div class="w-5 h-5 bg-indigo-700 rounded-full animate-bounce"></div>
             <div
-              class="w-5 h-5 bg-blue-500 rounded-full animate-bounce delay-150"
+              class="w-5 h-5 bg-indigo-700 rounded-full animate-bounce delay-150"
             ></div>
             <div
-              class="w-5 h-5 bg-blue-500 rounded-full animate-bounce delay-300"
+              class="w-5 h-5 bg-indigo-700 rounded-full animate-bounce delay-300"
             ></div>
           </div>
         </div>

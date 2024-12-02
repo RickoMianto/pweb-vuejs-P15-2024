@@ -68,11 +68,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="mt-14 mx-8 pb-14">
+  <main class="mt-14 mx-8 pb-14 bg-gray-100">
     <!-- Back to Home Button -->
     <RouterLink
       to="/"
-      class="px-4 text-white py-2 lg:ml-24 bg-blue-500 font-semibold rounded-xl inline-block hover:bg-blue-600 transition duration-200"
+      class="px-4 text-white py-2 lg:ml-24 bg-indigo-700 font-semibold rounded-xl inline-block hover:bg-indigo-800 transition duration-200"
       >⬅️ Back to Home</RouterLink
     >
 
@@ -90,46 +90,46 @@ export default defineComponent({
         <div class="w-full md:w-4/6 lg:w-[500px] lg:flex-shrink-0">
           <img
             :src="bookDetail.coverImage"
-            class="rounded-xl w-full shadow-md"
+            class="rounded-xl w-full shadow-md border border-gray-300"
             alt="Book Cover"
           />
         </div>
 
         <!-- Book Information -->
-        <div class="mt-10 lg:mt-0 lg:pr-24 flex-grow">
-          <h1 class="font-bold text-xl md:text-2xl lg:text-3xl text-white">
+        <div class="mt-10 lg:mt-0 lg:pr-24 flex-grow bg-gray-200 p-6 rounded-lg shadow-md">
+          <h1 class="font-bold text-xl md:text-2xl lg:text-3xl text-gray-800">
             Buku "{{ bookDetail.title }}" by {{ bookDetail.author }}
           </h1>
           <div class="flex items-center space-x-2 mt-2">
-            <h5 class="text-sm text-white-500 font-bold">
+            <h5 class="text-sm text-gray-600 font-bold">
               {{ bookDetail.rating.average }}
             </h5>
             <span class="text-yellow-400">{{ starRating }}</span>
-            <span class="text-sm text-white-500">
+            <span class="text-sm text-gray-600">
               ({{ bookDetail.rating.count }} reviews)
             </span>
           </div>
-          <hr class="border-t border-gray-300 my-4" />
+          <hr class="border-t border-gray-400 my-4" />
 
           <!-- Book Description -->
-          <h3 class="text-md md:text-lg text-white-700 leading-relaxed">
+          <h3 class="text-md md:text-lg text-gray-700 leading-relaxed">
             <span class="font-bold">About:</span> {{ bookDetail.description }}
           </h3>
 
           <!-- Published Date and Publisher -->
-          <h3 class="text-md md:text-lg text-white-700 mt-4">
+          <h3 class="text-md md:text-lg text-gray-700 mt-4">
             <span class="font-bold">Published:</span>
             {{ bookDetail.publishedDate }} by {{ bookDetail.publisher }}
           </h3>
 
           <!-- Categories -->
-          <h3 class="text-md md:text-lg text-white-700 mt-2">
+          <h3 class="text-md md:text-lg text-gray-700 mt-2">
             <span class="font-bold">Category:</span>
             {{ bookDetail.tags.join(", ") }}
           </h3>
 
           <!-- Stock Information -->
-          <h3 class="text-md md:text-lg text-white-700 mt-2">
+          <h3 class="text-md md:text-lg text-gray-700 mt-2">
             <span class="font-bold">Stock:</span>
             {{ bookDetail.qty }} of {{ bookDetail.initialQty }} books available
           </h3>

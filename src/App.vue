@@ -25,7 +25,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <nav class="bg-gray-800 p-4 shadow-md">
+  <nav class="bg-indigo-700 p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
       <!-- Logo Section -->
       <div class="flex items-center space-x-4">

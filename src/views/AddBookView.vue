@@ -19,6 +19,19 @@ export default defineComponent({
       qty: 0,
       error: false,
       errorMsg: "",
+      fields: [
+        { id: "title", label: "Title", model: "title", inputType: "text", placeholder: "Enter the book title" },
+        { id: "author", label: "Author", model: "author", inputType: "text", placeholder: "Enter the author's name" },
+        { id: "publishedDate", label: "Published Date", model: "publishedDate", inputType: "date" },
+        { id: "publisher", label: "Publisher", model: "publisher", inputType: "text", placeholder: "Enter the publisher" },
+        { id: "description", label: "Description", model: "description", inputType: "textarea", placeholder: "Write a brief description of the book", rows: 4 },
+        { id: "coverImage", label: "Cover Image URL", model: "coverImage", inputType: "url", placeholder: "Paste the cover image URL" },
+        { id: "ratingAverage", label: "Rating Average", model: "ratingAverage", inputType: "number", placeholder: "Enter the average rating", step: 0.1 },
+        { id: "ratingCount", label: "Rating Count", model: "ratingCount", inputType: "number", placeholder: "Enter the number of ratings" },
+        { id: "tags", label: "Tags (comma separated)", model: "tags", inputType: "text", placeholder: "Enter tags separated by commas" },
+        { id: "initialQty", label: "Initial Quantity", model: "initialQty", inputType: "number", placeholder: "Enter the initial stock quantity" },
+        { id: "qty", label: "Quantity", model: "qty", inputType: "number", placeholder: "Enter the current stock quantity" },
+      ],
     };
   },
   methods: {
@@ -26,42 +39,44 @@ export default defineComponent({
       return format(new Date(date), "dd MMMM yyyy");
     },
     async addBook() {
-      const newBook = {
-        title: this.title,
-        author: this.author,
-        publishedDate: this.formatDate(this.publishedDate),
-        publisher: this.publisher,
-        description: this.description,
-        coverImage: this.coverImage,
-        rating: {
-          average: this.ratingAverage,
-          count: this.ratingCount,
-        },
-        tags: this.tags.split(",").map((tag) => tag.trim()),
-        initialQty: this.initialQty,
-        qty: this.qty,
-      };
+      try {
+        const newBook = {
+          title: this.title,
+          author: this.author,
+          publishedDate: this.formatDate(this.publishedDate),
+          publisher: this.publisher,
+          description: this.description,
+          coverImage: this.coverImage,
+          rating: {
+            average: this.ratingAverage,
+            count: this.ratingCount,
+          },
+          tags: this.tags.split(",").map((tag) => tag.trim()),
+          initialQty: this.initialQty,
+          qty: this.qty,
+        };
 
-      const response = await fetch("http://localhost:3000/books", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newBook),
-      });
+        const response = await fetch("http://localhost:3000/book", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newBook),
+        });
 
-      if (response.ok) {
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to add book");
+        }
+
         alert("Book added successfully!");
         this.error = false;
         this.$router.push("/");
-      } else {
+      } catch (error) {
         this.error = true;
-        const data = await response.json();
-        if (data.message.includes("duplicate")) {
-          this.errorMsg = "Book already exists!";
-        } else {
-          this.errorMsg = data.message;
-        }
+        this.errorMsg = (error as Error).message.includes("duplicate")
+          ? "Book already exists!"
+          : (error as Error).message;
       }
     },
   },
@@ -71,185 +86,41 @@ export default defineComponent({
 <template>
   <main class="mt-10 mx-8 pb-24">
     <!-- Header -->
-    <h1 class="font-bold text-3xl text-center mb-6 text-white">
+    <h1 class="font-bold text-3xl text-center mb-6 text-gray-100">
       Add New Book
     </h1>
-    
+
     <!-- Form -->
     <form
       @submit.prevent="addBook"
-      class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-200"
+      class="max-w-3xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700"
     >
-      <!-- Input: Title -->
-      <div class="mb-6">
-        <label for="title" class="block text-black font-semibold mb-2">
-          Title
+      <!-- Input Fields -->
+      <div
+        v-for="field in fields"
+        :key="field.id"
+        class="mb-6"
+      >
+        <label
+          :for="field.id"
+          class="block text-gray-100 font-semibold mb-2"
+        >
+          {{ field.label }}
         </label>
-        <input
-          v-model="title"
-          id="title"
-          type="text"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Enter the book title"
-          required
-        />
-      </div>
-
-      <!-- Input: Author -->
-      <div class="mb-6">
-        <label for="author" class="block text-black font-semibold mb-2">
-          Author
-        </label>
-        <input
-          v-model="author"
-          id="author"
-          type="text"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Enter the author's name"
-          required
-        />
-      </div>
-
-      <!-- Input: Published Date -->
-      <div class="mb-6">
-        <label for="publishedDate" class="block text-black font-semibold mb-2">
-          Published Date
-        </label>
-        <input
-          v-model="publishedDate"
-          id="publishedDate"
-          type="date"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          required
-        />
-      </div>
-
-      <!-- Input: Publisher -->
-      <div class="mb-6">
-        <label for="publisher" class="block text-black font-semibold mb-2">
-          Publisher
-        </label>
-        <input
-          v-model="publisher"
-          id="publisher"
-          type="text"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Enter the publisher"
-          required
-        />
-      </div>
-
-      <!-- Input: Description -->
-      <div class="mb-6">
-        <label for="description" class="block text-black font-semibold mb-2">
-          Description
-        </label>
-        <textarea
-          v-model="description"
-          id="description"
-          rows="4"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Write a brief description of the book"
-          required
-        ></textarea>
-      </div>
-
-      <!-- Input: Cover Image URL -->
-      <div class="mb-6">
-        <label for="coverImage" class="block text-black font-semibold mb-2">
-          Cover Image URL
-        </label>
-        <input
-          v-model="coverImage"
-          id="coverImage"
-          type="url"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Paste the cover image URL"
-          required
-        />
-      </div>
-
-      <!-- Input: Rating Average -->
-      <div class="mb-6">
-        <label for="ratingAverage" class="block text-black font-semibold mb-2">
-          Rating Average
-        </label>
-        <input
-          v-model="ratingAverage"
-          id="ratingAverage"
-          type="number"
-          step="0.1"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Enter the average rating"
-          required
-        />
-      </div>
-
-      <!-- Input: Rating Count -->
-      <div class="mb-6">
-        <label for="ratingCount" class="block text-black font-semibold mb-2">
-          Rating Count
-        </label>
-        <input
-          v-model="ratingCount"
-          id="ratingCount"
-          type="number"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Enter the number of ratings"
-          required
-        />
-      </div>
-
-      <!-- Input: Tags -->
-      <div class="mb-6">
-        <label for="tags" class="block text-black font-semibold mb-2">
-          Tags (comma separated)
-        </label>
-        <input
-          v-model="tags"
-          id="tags"
-          type="text"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Enter tags separated by commas"
-          required
-        />
-      </div>
-
-      <!-- Input: Initial Quantity -->
-      <div class="mb-6">
-        <label for="initialQty" class="block text-black font-semibold mb-2">
-          Initial Quantity
-        </label>
-        <input
-          v-model="initialQty"
-          id="initialQty"
-          type="number"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Enter the initial stock quantity"
-          required
-        />
-      </div>
-
-      <!-- Input: Quantity -->
-      <div class="mb-6">
-        <label for="qty" class="block text-black font-semibold mb-2">
-          Quantity
-        </label>
-        <input
-          v-model="qty"
-          id="qty"
-          type="number"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          placeholder="Enter the current stock quantity"
+        <component
+          :is="field.inputType === 'textarea' ? 'textarea' : 'input'"
+          v-model.lazy="this[field.model]"
+          :id="field.id"
+          :type="field.inputType !== 'textarea' ? field.inputType : undefined"
+          :rows="field.rows"
+          class="w-full px-4 py-3 bg-gray-700 text-gray-100 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+          :placeholder="field.placeholder"
           required
         />
       </div>
 
       <!-- Error Message -->
-      <h5
-        class="font-bold text-lg text-red-500 mb-8 text-center"
-        v-show="error"
-      >
+      <h5 v-if="error" class="font-bold text-lg text-red-500 mb-8 text-center">
         {{ errorMsg }}
       </h5>
 
@@ -257,7 +128,7 @@ export default defineComponent({
       <div class="flex justify-center">
         <button
           type="submit"
-          class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
+          class="px-6 py-3 bg-indigo-700 text-gray-100 font-semibold rounded-lg shadow-md hover:bg-indigo-800 transition duration-200"
         >
           Add Book
         </button>
