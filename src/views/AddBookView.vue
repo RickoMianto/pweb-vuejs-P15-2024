@@ -82,7 +82,7 @@ export default defineComponent({
     >
       <!-- Input: Title -->
       <div class="mb-6">
-        <label for="title" class="block text-gray-700 font-semibold mb-2">
+        <label for="title" class="block text-black font-semibold mb-2">
           Title
         </label>
         <input
@@ -97,7 +97,7 @@ export default defineComponent({
 
       <!-- Input: Author -->
       <div class="mb-6">
-        <label for="author" class="block text-gray-700 font-semibold mb-2">
+        <label for="author" class="block text-black font-semibold mb-2">
           Author
         </label>
         <input
@@ -112,7 +112,7 @@ export default defineComponent({
 
       <!-- Input: Published Date -->
       <div class="mb-6">
-        <label for="publishedDate" class="block text-gray-700 font-semibold mb-2">
+        <label for="publishedDate" class="block text-black font-semibold mb-2">
           Published Date
         </label>
         <input
@@ -126,7 +126,7 @@ export default defineComponent({
 
       <!-- Input: Publisher -->
       <div class="mb-6">
-        <label for="publisher" class="block text-gray-700 font-semibold mb-2">
+        <label for="publisher" class="block text-black font-semibold mb-2">
           Publisher
         </label>
         <input
@@ -141,7 +141,7 @@ export default defineComponent({
 
       <!-- Input: Description -->
       <div class="mb-6">
-        <label for="description" class="block text-gray-700 font-semibold mb-2">
+        <label for="description" class="block text-black font-semibold mb-2">
           Description
         </label>
         <textarea
@@ -156,7 +156,7 @@ export default defineComponent({
 
       <!-- Input: Cover Image URL -->
       <div class="mb-6">
-        <label for="coverImage" class="block text-gray-700 font-semibold mb-2">
+        <label for="coverImage" class="block text-black font-semibold mb-2">
           Cover Image URL
         </label>
         <input
@@ -171,7 +171,7 @@ export default defineComponent({
 
       <!-- Input: Rating Average -->
       <div class="mb-6">
-        <label for="ratingAverage" class="block text-gray-700 font-semibold mb-2">
+        <label for="ratingAverage" class="block text-black font-semibold mb-2">
           Rating Average
         </label>
         <input
@@ -187,7 +187,7 @@ export default defineComponent({
 
       <!-- Input: Rating Count -->
       <div class="mb-6">
-        <label for="ratingCount" class="block text-gray-700 font-semibold mb-2">
+        <label for="ratingCount" class="block text-black font-semibold mb-2">
           Rating Count
         </label>
         <input
@@ -202,7 +202,7 @@ export default defineComponent({
 
       <!-- Input: Tags -->
       <div class="mb-6">
-        <label for="tags" class="block text-gray-700 font-semibold mb-2">
+        <label for="tags" class="block text-black font-semibold mb-2">
           Tags (comma separated)
         </label>
         <input
@@ -217,7 +217,7 @@ export default defineComponent({
 
       <!-- Input: Initial Quantity -->
       <div class="mb-6">
-        <label for="initialQty" class="block text-gray-700 font-semibold mb-2">
+        <label for="initialQty" class="block text-black font-semibold mb-2">
           Initial Quantity
         </label>
         <input
@@ -232,7 +232,7 @@ export default defineComponent({
 
       <!-- Input: Quantity -->
       <div class="mb-6">
-        <label for="qty" class="block text-gray-700 font-semibold mb-2">
+        <label for="qty" class="block text-black font-semibold mb-2">
           Quantity
         </label>
         <input
